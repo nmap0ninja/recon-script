@@ -1,40 +1,62 @@
-#!/bin/bash
+# Recon Script
 
-# Basic to Advanced Recon Script
-# Author: safwan tahmid 
-# GitHub: https://github.com/nmap0ninja
+A simple Bash script for automated reconnaissance, designed for cybersecurity enthusiasts and penetration testers. This script helps gather information about a target domain by performing WHOIS lookups, subdomain enumeration, live subdomain checking, port scanning, and capturing screenshots.
 
-if [ "$#" -ne 1 ]; then
-    echo "Usage: $0 <target-domain>"
-    exit 1
-fi
+## Features
+- ✅ WHOIS lookup using `whois`
+- ✅ Subdomain enumeration with `assetfinder`
+- ✅ Live subdomain checking with `httprobe`
+- ✅ Port scanning with `nmap`
+- ✅ Screenshot capture with `gowitness`
 
-target=$1
-output_dir="recon-$target"
-mkdir -p $output_dir
+## Prerequisites
+Before running the script, ensure you have the following tools installed on your system (preferably Kali Linux or another Linux distribution):
 
-echo "Starting reconnaissance on $target..."
+- `whois`
+- `nmap`
+- `assetfinder` (Go tool)
+- `httprobe` (Go tool)
+- `gowitness` (Go tool)
+- Go (for installing the above Go tools)
 
-# 1. WHOIS Lookup
-echo "[+] Performing WHOIS lookup..."
-whois $target > $output_dir/whois.txt
+### Install Dependencies
+Run the following commands to install the required tools:
 
-echo "[+] Finding Subdomains..."
-# 2. Subdomain Enumeration using subfinder and assetfinder
-subfinder -d $target -o $output_dir/subdomains.txt
-assetfinder --subs-only $target >> $output_dir/subdomains.txt
-sort -u -o $output_dir/subdomains.txt $output_dir/subdomains.txt
+```bash
+# Install whois and nmap
+sudo apt update
+sudo apt install whois nmap -y
 
-# 3. Resolving Live Domains
-echo "[+] Checking for live subdomains..."
-cat $output_dir/subdomains.txt | httprobe > $output_dir/live_subdomains.txt
+# Install Go (if not already installed)
+# Follow the official Go installation guide: https://go.dev/doc/install
 
-# 4. Port Scanning using Nmap
-echo "[+] Running Nmap scan..."
-nmap -sC -sV -T4 -oN $output_dir/nmap_scan.txt $target
+# Install Go-based tools
+go install -v github.com/tomnomnom/assetfinder@latest
+go install -v github.com/tomnomnom/httprobe@latest
+go install -v github.com/sensepost/gowitness@latest
+Download & Usage
+1. Clone the Repository
 
-# 5. Screenshot live targets using gowitness
-echo "[+] Taking screenshots of live subdomains..."
-gowitness file -f $output_dir/live_subdomains.txt -P $output_dir/screenshots
+Clone this repository to your local machine:
+git clone https://github.com/nmap0ninja/recon-script.git
+cd recon-script
+2. Make the Script Executable
 
-echo "Reconnaissance completed! Results saved in $output_dir"
+Set the correct permissions for the script:
+chmod +x recon.sh
+3. Run the Script
+
+Run the script by providing a target domain (e.g., example.com):
+./recon.sh example.com
+Note: Only scan domains you own or have explicit permission to test. Unauthorized scanning can be illegal.
+Output
+
+The script will create a folder named recon_<target> (e.g., recon_example.com) containing:
+
+    whois.txt: WHOIS lookup results
+    subdomains.txt: Discovered subdomains
+    live_subdomains.txt: Subdomains that respond to HTTP/HTTPS
+    nmap_scan.txt: Port scan results
+    screenshots/: Screenshots of live subdomains
+
+
