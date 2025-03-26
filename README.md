@@ -2,7 +2,7 @@
 # Recon Script
 
 A Bash script for basic to advanced reconnaissance, designed for cybersecurity enthusiasts and penetration testers. This script helps gather information about a target domain or IP, with features ranging from WHOIS lookups and port scanning to vulnerability scanning and directory enumeration.
-
+***This operation will take a little it time ,so sorry for that but i assure you this will give a fantastic result***
 ## Features
 ### Basic Mode
 - ✅ WHOIS lookup using `whois`
@@ -100,7 +100,6 @@ The script will create a folder named recon_<target> (e.g., recon_example.com or
 
 Example
 Basic Mode (Domain)
-bash
 ./recon.sh example.com basic
 
 This will:
@@ -111,7 +110,6 @@ This will:
     Scan open ports on live subdomains with nmap (using -T4 -A -p-).
 
 Advanced Mode (Domain)
-bash
 ./recon.sh example.com advanced /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt
 
 This will:
@@ -122,7 +120,6 @@ This will:
     Capture screenshots of live subdomains with gowitness.
 
 Basic Mode (IP)
-bash
 ./recon.sh ip_address basic
 
 This will:
@@ -131,7 +128,6 @@ This will:
     Scan open ports on the IP with nmap (using -T4 -A -p-).
 
 Advanced Mode (IP)
-bash
 ./recon.sh ip_address  advanced
 
 This will:
