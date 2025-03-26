@@ -47,7 +47,7 @@ if ! is_ip "$TARGET"; then
         else
             # Port scanning with Nmap for live subdomains
             echo "[+] Scanning ports with Nmap..."
-            nmap -T4 -A -p- -iL "$OUTPUT_DIR/live_subdomains.txt" -oN "$OUTPUT_DIR/nmap_scan.txt"
+            nmap -T4 -A -p-  "$OUTPUT_DIR/live_subdomains.txt" -oN "$OUTPUT_DIR/nmap_scan.txt"
 
             # Capture screenshots with Gowitness
             echo "[+] Capturing screenshots..."
