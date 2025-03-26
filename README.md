@@ -2,7 +2,7 @@
 # Recon Script
 
 A Bash script for basic to advanced reconnaissance, designed for cybersecurity enthusiasts and penetration testers. This script helps gather information about a target domain or IP, with features ranging from WHOIS lookups and port scanning to vulnerability scanning and directory enumeration.
-***This operation will take a little it time ,so sorry for that but i assure you this will give a fantastic result***
+***This operation will take a little bit time ,so sorry for that but i assure you this will give a fantastic result***
 ## Features
 ### Basic Mode
 - ✅ WHOIS lookup using `whois`
