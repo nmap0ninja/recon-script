@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # Recon Script for Pentesting
-# Author: nmap0ninja
-# Description: This script performs recon using nmap, sublist3r (for subdomains), and gobuster (for directory fuzzing)
+# Author: Safwan Tahmid
+# Description: This script performs recon using nmap, Sublist3r (for subdomains), and gobuster (for directory fuzzing)
 
 # Check if required tools are installed
 command -v nmap >/dev/null 2>&1 || { echo "nmap is not installed. Please install it."; exit 1; }
@@ -26,6 +26,9 @@ mkdir -p "$output_dir"
 # Subdomain Enumeration
 echo "[+] Finding subdomains..."
 python3 Sublist3r/sublist3r.py -d "$domain" -o "$output_dir/subdomains.txt"
+if [ ! -s "$output_dir/subdomains.txt" ]; then
+    echo "No subdomains found" > "$output_dir/subdomains.txt"
+fi
 cat "$output_dir/subdomains.txt"
 
 # Nmap Scan
@@ -36,8 +39,12 @@ cat "$output_dir/nmap_scan.txt"
 # Directory Fuzzing
 echo "[+] Performing directory fuzzing..."
 gobuster dir -u "http://$domain" -w /usr/share/wordlists/dirb/common.txt -o "$output_dir/dir_fuzzing.txt"
+if [ ! -s "$output_dir/dir_fuzzing.txt" ]; then
+    echo "No directories found" > "$output_dir/dir_fuzzing.txt"
+fi
 cat "$output_dir/dir_fuzzing.txt"
 
 # Summary
 echo "[+] Recon completed. Results saved in $output_dir"
+
 
